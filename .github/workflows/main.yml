@@ -74,11 +74,15 @@ jobs:
         with:
           submodules: 'recursive'
           fetch-depth: 0
+      - name: QEMU
+        run: |
+            export DOCKER_CLI_EXPERIMENTAL=enabled
+            docker run --rm --privileged linuxkit/binfmt:v0.8
+            docker buildx create --name mybuilder --driver docker-container --use
+            docker buildx inspect --bootstrap
       - name: build
         run: |
-            docker build . -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }} -f \
-              ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:${{ matrix.images.tag }}
             docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-      - name: push
-        run: |
-            docker push bensuperpc/distcc --all-tags
+            docker buildx build . -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }} -f \
+              ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:${{ matrix.images.tag }} \
+              --platform linux/amd64,linux/arm64,linux/386,linux/arm/v7,linux/ppc64le,linux/s390x --push
