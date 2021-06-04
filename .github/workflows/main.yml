@@ -77,6 +77,6 @@ jobs:
       - name: build
         run: |
             docker build . -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }} -f \
-            ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:{{ matrix.images.tag }}
+              ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:{{ matrix.images.tag }}
             docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
             docker push --all-tags
