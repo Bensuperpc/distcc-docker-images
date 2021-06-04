@@ -1,7 +1,9 @@
-FROM fedora:34
+ARG DOCKER_IMAGE=fedora:34
+FROM $DOCKER_IMAGE
 
-LABEL maintainer="Simon Redman <simon@ergotech.com>"
-LABEL author="Konrad Kleine <kkleine@redhat.com>"
+
+LABEL maintainer="Bensuperpc <Bensuperpc@gmail.com>"
+LABEL author="Konrad Kleine <kkleine@redhat.com>;Simon Redman <simon@ergotech.com>"
 LABEL description="A distccd image based on Fedora 34 used for distributed"
 ENV LANG=en_US.utf8
 
@@ -36,6 +38,7 @@ ENTRYPOINT [\
 CMD [\
   "--allow", "0.0.0.0/0", \
   "--nice", "5", \
+  "--jobs", "5" \
 ]
 
 # 3632 is the default distccd port

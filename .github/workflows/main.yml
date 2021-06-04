@@ -1,0 +1,82 @@
+name: distcc-docker-images
+
+on:
+  schedule:
+  - cron:  "0 23 */7 * *"
+  push:
+  workflow_dispatch:
+
+jobs:
+  distcc-docker-images:
+    name: distcc:${{ matrix.images.image }}_${{ matrix.images.tag }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        images:
+        - Dockerfile: Dockerfile_fedora
+          image: fedora
+          tag: '34'
+        - Dockerfile: Dockerfile_fedora
+          image: fedora
+          tag: '33'
+        - Dockerfile: Dockerfile_fedora
+          image: fedora
+          tag: '32'
+        - Dockerfile: Dockerfile_fedora
+          image: fedora
+          tag: '31'
+        - Dockerfile: Dockerfile_fedora
+          image: fedora
+          tag: '30'
+        - Dockerfile: Dockerfile_fedora
+          image: fedora
+          tag: '29'
+        - Dockerfile: Dockerfile_debian
+          image: debian
+          tag: bullseye-slim
+        - Dockerfile: Dockerfile_debian
+          image: debian
+          tag: buster-slim
+        - Dockerfile: Dockerfile_debian
+          image: debian
+          tag: stretch-slim
+        - Dockerfile: Dockerfile_debian
+          image: debian
+          tag: jessie-slim
+        - Dockerfile: Dockerfile_debian
+          image: ubuntu
+          tag: '14.04'
+        - Dockerfile: Dockerfile_debian
+          image: ubuntu
+          tag: '16.04'
+        - Dockerfile: Dockerfile_debian
+          image: ubuntu
+          tag: '18.04'
+        - Dockerfile: Dockerfile_debian
+          image: ubuntu
+          tag: '20.04'
+        - Dockerfile: Dockerfile_alpine
+          image: alpine
+          tag: '3.13'
+        - Dockerfile: Dockerfile_alpine
+          image: alpine
+          tag: '3.12'
+        - Dockerfile: Dockerfile_alpine
+          image: alpine
+          tag: '3.11'
+        - Dockerfile: Dockerfile_alpine
+          image: alpine
+          tag: '3.10'
+    steps:
+      - name: "📥 Checkout Code"
+        uses: actions/checkout@v2.3.4
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+      - name: build
+        run: |
+            docker build . -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }} -f \
+            ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:{{ matrix.images.tag }}
+            docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+            docker push --all-tags
