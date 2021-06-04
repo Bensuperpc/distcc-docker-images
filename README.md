@@ -20,6 +20,8 @@ cd distcc-docker-images
 ```
 #### Usage
 
+Optional: Pull docker image from: https://hub.docker.com/repository/docker/bensuperpc/distcc
+
 ``./run.sh && ./test.sh (It may take time)
 ```
 #### Build
