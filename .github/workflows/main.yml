@@ -79,4 +79,6 @@ jobs:
             docker build . -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }} -f \
               ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:${{ matrix.images.tag }}
             docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: push
+        run: |
             docker push bensuperpc/distcc --all-tags
