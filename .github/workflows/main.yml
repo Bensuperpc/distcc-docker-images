@@ -78,7 +78,8 @@ jobs:
         run: |
             docker build . -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }} \
               -t bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }}-$(date '+%Y%m%d')-$(git rev-parse --short HEAD) -f \
-              ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:${{ matrix.images.tag }}
+              ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:${{ matrix.images.tag }} \
+              --build-arg BUILD_DATE=$(date -u "+%Y-%m-%dT%H:%M:%SZ")
             docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
       - name: push
         run: |
