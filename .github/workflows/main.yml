@@ -81,6 +81,12 @@ jobs:
               ${{ matrix.images.Dockerfile }} --build-arg DOCKER_IMAGE=${{ matrix.images.image }}:${{ matrix.images.tag }} \
               --build-arg BUILD_DATE=$(date -u "+%Y-%m-%dT%H:%M:%SZ")
             docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: run
+        run: |
+            docker run -p 3632:3632 -p 3633:3633 -d --name localdistcc bensuperpc/distcc:${{ matrix.images.image }}_${{ matrix.images.tag }}
+      - name: test port
+        run: |
+            sleep 10 && nc -zv 127.0.0.1 3632 && nc -zv 127.0.0.1 3633
       - name: push
         run: |
             docker push bensuperpc/distcc --all-tags

@@ -5,7 +5,7 @@ docker run \
   -p 3633:3633 \
   -d \
   --name localdistcc \
-  bensuperpc/distcc
+  bensuperpc/distcc:fedora_34
 #--allow
 #docker exec -it localdistcc htop
 #--cpus="1.5"
