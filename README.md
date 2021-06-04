@@ -7,7 +7,7 @@
 
 # New Features !
 
-  - Multi-build
+  - Multi-build (Ubuntu, debian, fedora, alpine)
 
 #### Install
 You need Linux distribution like Ubuntu or Manjaoro
