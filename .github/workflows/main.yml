@@ -70,7 +70,7 @@ jobs:
           tag: '3.10'
     steps:
       - name: "📥 Checkout Code"
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.1
         with:
           submodules: 'recursive'
           fetch-depth: 0
