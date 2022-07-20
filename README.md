@@ -1,15 +1,50 @@
-[![Docker Repository on Quay](https://quay.io/repository/kkleine/distcc/status "Docker Repository on Quay")](https://quay.io/repository/kkleine/distcc)
+# distcc-docker-imagesi
 
-# Distcc server images
+### _distcc in docker with multi-distro support_
+ [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-jeffs-keyboard.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com)
 
-I use this image to build LLVM distributed over spare machines.
+[![distcc-docker-images](https://github.com/Bensuperpc/distcc-docker-images/actions/workflows/main.yml/badge.svg)](https://github.com/Bensuperpc/distcc-docker-images/actions/workflows/main.yml)
 
-I encourage you to read this article that I've written about compiling with distcc containers:
+# New Features !
 
-On Red Hat Developer Blog: https://developers.redhat.com/blog/2019/05/15/2-tips-to-make-your-c-projects-compile-3-times-faster/
+  - Multi-build (Ubuntu, debian, fedora, alpine)
 
-On Medium: https://link.medium.com/cfhBeb298V
+#### Install
+You need Linux distribution like Ubuntu or Manjaoro
 
-or watch this video:
+```sh
+https://github.com/Bensuperpc/distcc-docker-images.git
+```
+```sh
+cd distcc-docker-images
+```
+#### Usage
 
-[![2 ninja tips to make your C++ projects compile 3 times faster](https://img.youtube.com/vi/kIKSx30t8bk/0.jpg)](https://www.youtube.com/watch?v=kIKSx30t8bk)
+Optional: Pull docker image from: https://hub.docker.com/repository/docker/bensuperpc/distcc
+
+```sh
+./run.sh && ./test.sh (It may take time)
+```
+#### Build
+```sh
+docker build . -t bensuperpc/distcc -f Dockerfile_fedora
+```
+
+### Todos
+
+ - Write Tests
+ - Continue dev. :D
+
+### More info : 
+- https://developers.redhat.com/blog/2019/05/15/2-tips-to-make-your-c-projects-compile-3-times-faster/
+- https://link.medium.com/cfhBeb298V
+
+License
+----
+
+MIT License
+
+
+**Free Software forever !**
+   
+ 
